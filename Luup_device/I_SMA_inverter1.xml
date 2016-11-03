@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<implementation>
+   <settings>
+      <handleChildren>1</handleChildren>
+   </settings>
+   <files>L_SMA_inverter1.lua</files>
+   <startup>luaStartUp</startup>
+   <actionList>
+     <action>
+      <serviceId>urn:a-lurker-com:serviceId:SMA_inverter1</serviceId>
+      <name>Polling</name>
+      <run>
+        polling(lul_settings.PollEnable)
+      </run>
+    </action>
+     <action>
+      <serviceId>urn:a-lurker-com:serviceId:SMA_inverter1</serviceId>
+      <name>SetInverterTime</name>
+      <run>
+        setInverterTime()
+      </run>
+    </action>
+  </actionList>
+</implementation>
