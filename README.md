@@ -1,4 +1,4 @@
-# <img align="left" src="https://a-lurker.github.io/icons/SMA_inverter_50_50.png"> Vera-Plugin-SMA-inverter-metering
+# <img align="left" src="https://a-lurker.github.io/icons/SMA_inverter_50_50.png"> Vera-Plugin-SMA-inverter
 
 Connect Vera to a SMA inverter and monitor your electricity production
 
