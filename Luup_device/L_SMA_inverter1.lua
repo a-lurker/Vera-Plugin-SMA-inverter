@@ -40,7 +40,7 @@ DISCLAIMER:
 -- this code suits most SMA inverters
 local PLUGIN_NAME     = 'SMA_inverter'
 local PLUGIN_SID      = 'urn:a-lurker-com:serviceId:'..PLUGIN_NAME..'1'
-local PLUGIN_VERSION  = '0.53'
+local PLUGIN_VERSION  = '0.54'
 local THIS_LUL_DEVICE = nil
 
 local m_first_time = true
@@ -263,6 +263,7 @@ local bitFunctions = require('bit')
 -- http://w3.impa.br/~diego/software/luasocket/reference.html
 local socket = require('socket')
 local http   = require('socket.http')
+local ltn12  = require('ltn12')
 
 -- don't change this, it won't do anything. Use the debugEnabled flag instead
 local DEBUG_MODE = false
@@ -376,7 +377,8 @@ local function addStatusService(energyGeneration, powerGeneration)
     energyGeneration = tostring(energyGeneration)
 
     local theDate = os.date ('%Y%m%d')
-    local theTime = os.date ('%H%3A%M')
+    -- format as 'H:M'
+    local theTime = os.date ('%H%%3A%M')
 
     debug (theDate)
     debug (theTime)
@@ -910,6 +912,8 @@ function luaStartUp(lul_device)
         m_PVOutputSystemID = pvOutputSystemID
     end
 
+    if (pluginEnabled ~= '1') then return true, 'All OK', PLUGIN_NAME end
+
     -- The ip address can be usually be found using a multicast but not
     -- always. If found, it will be the correct address at any one time.
     ipAddress = getIPaddress()
@@ -932,8 +936,6 @@ function luaStartUp(lul_device)
 
     -- required for UI7
     luup.set_failure(false)
-
-    if (pluginEnabled ~= '1') then return true, 'All OK', PLUGIN_NAME end
 
     -- delay so that the first poll occurs delay interval after start up
     local INITIAL_POLL_INTERVAL_SECS = 65
